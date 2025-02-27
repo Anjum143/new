@@ -1,0 +1,174 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Dashboard</title>
+        <link rel="stylesheet" href="{% static 'css/user_profile.css' %}">
+        <!-- Bootstrap CSS link -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+        <!-- Custom styles -->
+        <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+        <style>
+            .sidebar_user_initial {
+                color: white;
+                font-weight: bold;
+                width: 70px;
+                height: 70px;
+                font-size: 40px;
+                border-radius: 50px;
+                text-align: center;
+                background-color: rgb(173, 173, 173);
+                margin: 0px auto;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container-fluid">
+            <div class="row">
+                <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-light sidebar">
+                    <div class="position-sticky">
+                        <div class="text-center">
+                            {% if profile.image and profile.image.url %}
+                            <img class="sidebar_user_image" src="{{ profile.image.url }}" alt="Profile Image">
+                            {% else %}
+                            <div class="sidebar_user_initial">{{ request.user.username|first|upper }}</div>
+                            {% endif %}
+                        </div>
+                        <ul class="nav flex-column">
+                            <li class="nav-item">
+                                <a class="nav-link active" href=""
+                                    onclick="changeContent('dashboard-content')">Articles</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#" onclick="changeContent('profile-content')">Profile</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#" onclick="changeContent('update-profile')">Update
+                                    Profile</a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+                <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4" id="main-content">
+                    <div id="dashboard-content" class="content-section" style="display: block;">
+                        <div class="container d-flex justify-content-end">
+                            <form action="{% url 'user_auth:user_dashboard' %}" method="get" id="filter-form">
+                                {{f_form.status.label}}
+                                <div class="d-flex">
+                                    {{f_form.status}}
+                                    <button class="btn filter-btn" type="submit"> <i class="fa fa-search"></i></button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="articles mt-2">
+                            <h2 class="text-center text-primary mt-1">Articles</h2>
+                            <div class="article">
+                                <table class="table table-hover table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <td>Title</td>
+                                            <td>Article File</td>
+                                            <td>Status</td>
+                                        </tr>
+                                    </thead>
+                                    {% for article in articles %}
+                                    <tbody>
+                                        <tr>
+                                            <td>{{article.title}}</td>
+                                            <td><a href="{{article.article_file.url}}">{{article.article_file.url}}</a>
+                                            </td>
+                                            <td>{{article.status}}</td>
+                                        </tr>
+                                    </tbody>
+                                    {% endfor %}
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="profile-content" class="content-section" style="display: none;">
+                        <h2>Your Profile</h2>
+                        <p>Username: {{ request.user.username }}</p>
+                        <p>Email: {{ request.user.email }}</p>
+                    </div>
+                    <div id="update-profile" class="content-section" style="display: none;">
+                        <h1 class="text-center">Update Your Profile</h1>
+                        <form action="" method="post" enctype="multipart/form-data" class="form w-75 mx-auto mb-4">
+                            {%csrf_token%}
+                            {{u_form}}
+                            {{p_form}}
+                            <input type="submit" value="Update" class="btn">
+                        </form>
+                    </div>
+                    <div id="for-content" class="content-section" style="display: none;">
+                        <h2>Your Profile</h2>
+                        <p>Username: {{ request.user.username }}</p>
+                        <p>Email: {{ request.user.email }}</p>
+                    </div>
+                </main>
+            </div>
+        </div>
+        <!-- Bootstrap JS and Popper.js -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Custom script for content switching -->
+        <script src="{% static 'js/dashboard.js' %}"></script>
+
+    </body>
+
+    <style>
+        .search {
+            position: relative;
+            box-shadow: 0 0 40px rgba(51, 51, 51, .1)
+        }
+
+        .search input {
+            height: 60px;
+            text-indent: 25px;
+            border: 2px solid #d6d4d4;
+        }
+        .search input:focus {
+            box-shadow: none;
+            border: 2px solid blue;
+        }
+
+        .search .fa-search {
+            top: 0px;
+        }
+
+        .search button {
+            height: 50px;
+            width: 40px;
+            background: blue;
+
+        }
+
+        .filter-form-control {
+            border-radius: 0px;
+        }
+
+        .filter-btn {
+            border-radius: 0px;
+            margin: 0px;
+            padding: 3px 8px;
+            background: blue;
+        }
+    </style>
+    <script>
+        function changeContent(contentId) {
+        // Hide all content sections
+        document.querySelectorAll('.content-section').forEach(section => {
+            section.style.display = 'none';
+        });
+    
+        // Display the selected content section
+        document.getElementById(contentId).style.display = 'block';
+    }
+    </script>
+
+</html>
+
+{% endblock content %}

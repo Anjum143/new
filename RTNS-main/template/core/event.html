@@ -1,0 +1,175 @@
+{% extends 'partials/base.html' %}
+{% load social_share %}
+{% block content %}
+
+<style>
+    .event-card {
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+    .event-header {
+        background-color: #007bff;
+        color: #fff;
+        padding: 10px;
+    }
+
+    .event-title {
+        background-color: white;
+        margin-top: 30px;
+        color: #3498db;
+        padding: 5px;
+        border-radius: 5px;
+        box-shadow: 2px 2px 4px black;
+    }
+
+    .event-body {
+        padding: 15px;
+    }
+
+    .event-date,
+    .speaker-name,
+    .session-chair {
+        margin: 0;
+    }
+
+    .event-footer {
+        background-color: #f2f2f2;
+        padding: 10px;
+        text-align: center;
+    }
+
+    /* .btn {
+        background-color: #3498db;
+        color: #fff;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .btn:hover {
+        background-color: #2980b9;
+    } */
+
+    .event-title.active {
+        background-color: #007bff;
+        color: white;
+    }
+
+    table {
+        border-collapse: separate;
+        padding: 10px;
+        border: 3px solid rgb(155, 154, 154);
+    }
+
+    .table td:first-child {
+        padding: auto 3px !important;
+        border: none;
+        border-right: 1px solid rgb(190, 186, 186);
+    }
+
+    .table td:nth-child(2) {
+        border: none;
+        border-bottom: 1px solid rgb(190, 186, 186);
+    }
+
+    #date {
+        font-size: 25px;
+        color: #007bff;
+    }
+
+    td h2 {
+        font-weight: 200;
+        font-size: 20px;
+    }
+
+    td h2 span {
+        font-weight: 500;
+    }
+
+    td h3 {
+        font-weight: 200;
+        font-size: 20px;
+    }
+
+    td h3 span {
+        font-weight: 500;
+    }
+
+    .title {
+        color: #007bff;
+        font-size: 20px;
+        font-weight: 200;
+    }
+
+    .share-button {
+        margin: 40px 40px 20px 20px;
+        background-color: #007bff;
+        color: white;
+    }
+</style>
+
+<div class="d-flex justify-content-end">
+    <a href="{% url 'event_reg:registration'%}" class="btn ms-5 share-button">Event Registration</a>
+</div>
+
+<div class="d-flex justify-content-center">
+    {% for event in events %}
+    <h2 class="event-title mx-3 {% if forloop.first %}active{% endif %}" data-event-id="{{ event.id }}">
+        {{ event.title }} - {{ event.date }}
+    </h2>
+    {% endfor %}
+</div>
+<div class="container my-3">
+    <table class="table p-3">
+        {% for event in events %}
+        <tbody class="speech-list {% if forloop.first %}active{% endif %}" data-event-id="{{ event.id }}">
+
+            {% for speech in speechs %}
+            {% if speech.event == event %}
+            <tr>
+                <td class="w-25">
+                    <p id="date" class="text-center">{{speech.start_time}}-{{speech.end_time}}</p>
+                </td>
+                <td class="w-75">
+                    <p class="title">{{speech.speech_title}}</p>
+                    <h2>Speaker: <span>{{speech.speaker}}</span></h2>
+                    <h3>Session Chair: <span>{{speech.session_chair}}</span></h3>
+                    {% post_to_facebook speech.speech_title  object_or_url %}
+                    {% post_to_twitter speech.speech_title object_or_url link_text link_class %}
+                    {% post_to_whatsapp speech.speech_title  object_or_url %}
+                </td>
+            </tr>
+
+            {% endif %}
+            {% endfor %}
+        </tbody>
+        {% endfor %}
+    </table>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+
+    $(document).ready(function () {
+        $(".speech-list").hide();
+        $(".speech-list:first").show();
+
+
+        $(".event-title:first").addClass("active");
+
+        $(".event-title").click(function () {
+
+            $(".event-title").removeClass("active");
+            $(".speech-list").hide();
+
+            var eventId = $(this).data("event-id");
+            $(".speech-list[data-event-id='" + eventId + "']").show();
+            $(this).addClass("active");
+        });
+    });
+</script>
+
+{% endblock content %}

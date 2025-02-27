@@ -1,0 +1,594 @@
+ {% extends 'partials/base.html' %}
+<!-- {% load static %} -->
+{% block content %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+    <head>
+        <meta charset="UTF-8">
+        <title> Registration Form</title>
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+
+            
+
+            .main-body {
+                padding-top: 50px;
+                padding-bottom: 50px;
+                justify-content: center;
+                align-items: center;
+
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-position: center center;
+
+
+            }
+
+            .container {
+                max-width: 700px;
+                width: 100%;
+                background-color: #fff;
+                padding: 25px 30px;
+                border-radius: 5px;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+                --bs-gutter-x: 8.5rem !important; 
+
+            }
+
+            .container .title {
+                font-size: 25px;
+                font-weight: 500;
+                position: relative;
+
+            }
+
+            .container .title::before {
+                content: "";
+                position: absolute;
+                left: 0;
+                bottom: 0;
+                height: 3px;
+                width: 30px;
+                border-radius: 5px;
+                background: linear-gradient(135deg, #71b7e6, #9b59b6);
+            }
+
+            .content form .user-details {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: space-between;
+                margin: 20px 0 12px 0;
+            }
+
+            form .user-details .input-box {
+                margin-bottom: 15px;
+                width: calc(100% / 2 - 20px);
+            }
+
+            form .input-box span.details {
+                display: block;
+                font-weight: 500;
+                margin-bottom: 5px;
+            }
+
+            .user-details .input-box input {
+                height: 45px;
+                width: 100%;
+                outline: none;
+                font-size: 16px;
+                border-radius: 5px;
+                padding-left: 15px;
+                border: 1px solid #ccc;
+                border-bottom-width: 2px;
+                transition: all 0.3s ease;
+            }
+
+            .user-details .input-box input:focus,
+            .user-details .input-box input:valid {
+                border-color: #9b59b6;
+            }
+
+            form .gender-details .gender-title {
+                font-size: 20px;
+                font-weight: 500;
+            }
+
+            form .category {
+                display: flex;
+                width: 80%;
+                margin: 14px 0;
+                justify-content: space-between;
+            }
+
+            form .category label {
+                display: flex;
+                align-items: center;
+                cursor: pointer;
+            }
+
+            form .category label .dot {
+                height: 18px;
+                width: 18px;
+                border-radius: 50%;
+                margin-right: 10px;
+                background: #d9d9d9;
+                border: 5px solid transparent;
+                transition: all 0.3s ease;
+            }
+
+            #dot-1:checked~.category label .one,
+            #dot-2:checked~.category label .two {
+                background: #9b59b6;
+                border-color: #d9d9d9;
+            }
+
+            /*modifications*/
+            form .reg-purpose .regP-title {
+                font-size: 20px;
+                font-weight: 500;
+            }
+
+            #dot-3:checked~.category label .three,
+            #dot-4:checked~.category label .four,
+            #dot-5:checked~.category label .five {
+                background: #9b59b6;
+                border-color: #d9d9d9;
+            }
+
+            /*modification end*/
+            /* Style for the dropdown */
+            input,
+            select {
+                padding: 0.7rem;
+                margin-bottom: 0.5rem;
+                border: 1px solid #ddd;
+                border-radius: 4px;
+                box-sizing: border-box;
+                width: 100%;
+                font-size: 1em;
+                background-color: #fff;
+                transition: border-color 0.3s;
+            }
+
+            /* Style when the dropdown is focused */
+            select:focus {
+                border-color: #4caf50;
+                outline: none;
+            }
+
+            /* Style the arrow icon in the dropdown */
+            select::-ms-expand {
+                display: none;
+            }
+
+            /* Style for the dropdown arrow icon */
+            .select-arrow {
+                position: absolute;
+                top: 50%;
+                right: 10px;
+                transform: translateY(-50%);
+                pointer-events: none;
+            }
+
+            /* Style for the arrow icon's color */
+            .select-arrow::before {
+                content: '\25BC';
+                /* Down arrow character */
+                color: #666;
+            }
+
+            form input[type="radio"] {
+                width: fit-content;
+            }
+
+            form input[type="checkbox"] {
+                width: min-content
+            }
+
+            /* Add these styles at the end of your existing CSS file */
+
+            /* Style for the file input */
+            .file-label {
+                cursor: pointer;
+                padding: 10px;
+                display: inline-block;
+                background-color: #3498db;
+                color: #fff;
+                border-radius: 5px;
+                transition: background-color 0.3s;
+            }
+
+            .file-label:hover {
+                background-color: #2980b9;
+            }
+
+            .regS-input {
+                border-bottom: 2px solid black;
+                border-left: none;
+                border-right: none;
+                border-top: none;
+                margin-bottom: 10px;
+            }
+
+            .regS-input:focus {
+                border-bottom: 2px solid black;
+                border-left: none !important;
+                border-right: none !important;
+                border-top: none !important;
+            }
+
+
+            form .button {
+                height: 45px;
+                margin: 35px 0
+            }
+
+            form .button input {
+                height: 100%;
+                width: 100%;
+                border-radius: 5px;
+                border: none;
+                color: #fff;
+                font-size: 18px;
+                font-weight: 500;
+                letter-spacing: 1px;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                background: linear-gradient(135deg, #71b7e6, #9b59b6);
+            }
+
+            form .button input:hover {
+                /* transform: scale(0.99); */
+                background: linear-gradient(-135deg, #71b7e6, #9b59b6);
+            }
+
+            @media(max-width: 584px) {
+                .container {
+                    max-width: 100%;
+
+                }
+
+                form .user-details .input-box {
+                    margin-bottom: 15px;
+                    width: 100%;
+                }
+
+                form .category {
+                    width: 100%;
+                }
+
+                .content form .user-details {
+                    max-height: 660px;
+                    overflow-y: scroll;
+                }
+
+                .user-details::-webkit-scrollbar {
+                    width: 5px;
+                }
+            }
+
+            @media(max-width: 459px) {
+                .container .content .category {
+                    flex-direction: column;
+                }
+
+            }
+
+            @media screen and (max-width: 360px) {}
+        </style>
+
+        
+        
+
+
+        <div class="main-body">
+            <div class="container">
+                <div class="title">Registration</div>
+                <div class="content">
+                    <form method="POST" enctype="multipart/form-data" class="form  mx-auto" id="personForm" data-cities-url="{% url 'event_reg:ajax_load_subarea' %}">
+                        {% csrf_token %}
+
+                        <!-- Name -->
+                        <div class="user-details">
+
+
+                            <div class="input-box">
+                                <label class="details" for="{{ form.name.id_for_label }}">Name:<span
+                                        style="color: red;">*</span></label>
+                                {{ form.name }}
+                                {%for error in form.name.errors%}
+                                <span style="color: red;">{{error}}</span><br>
+                                {%endfor%}
+                            </div>
+
+                            <!-- Email -->
+                            <div class="input-box">
+                                <label class="details" for="{{ form.email.id_for_label }}">Email:<span
+                                    style="color: red;">*</span></label>
+                                {{ form.email }}
+                                {% if form.errors.email %}
+                                    <ul class="errorlist">
+                                    {% for error in form.errors.email %}
+                                        <span class="text-danger">{{ error }}</span><br>
+                                    {% endfor %}
+                                    </ul>
+                                {% endif %}
+                            </div>
+
+                            <!-- Area -->
+                            <div class="input-box">
+                                <label class="details" for="{{ form.area.id_for_label }}">Area:<span
+                                    style="color: red;">*</span></label>
+                                {{ form.area }}
+                            </div>
+                    
+                
+                            <!-- Registration Type -->
+                            <div class="input-box">
+                                <label class="details" for="{{ form.registration_type.id_for_label }}">Registration Type:<span
+                                    style="color: red;">*</span></label>
+                                {{ form.registration_type }}
+                            </div>
+
+                            <!-- Designation -->
+                            <div class="input-box">
+                                <label class="details" for="{{ form.designation.id_for_label }}">Designation:<span
+                                    style="color: red;">*</span></label>
+                                {{ form.designation }}
+                            </div>
+
+                            <!-- Faculty Designation -->
+                            <div class="input-box">
+                                <label class="details" for="{{ form.faculty_designation.id_for_label }}">Faculty Designation:<span
+                                    style="color: red;">*</span></label>
+                                {{ form.faculty_designation }}
+                            </div>
+
+                            <!-- Affiliation -->
+                            <div class="input-box">
+                                <label class="details" for="{{ form.affiliation.id_for_label }}">Affiliation:<span
+                                    style="color: red;">*</span></label>
+                                {{ form.affiliation }}
+                            </div>
+
+                            <!-- Fee Receipt -->
+                            <div class="input-box">
+                                <span style="color:red;">1000 Rs for UE Students</span><br>
+                                <span style="color:red;">1500 Rs for out of UE</span><br>
+                                <span style="color:red;">UE Faculty free</span><br>
+                                <span style="color:red;">Account no:</span><br>
+                                <label class="details" for="{{ form.fee_receipt.id_for_label }}">Fee Receipt:</label>
+                                {{ form.fee_receipt }}
+                                <span style="color:red;"><b>Note</b>:Upload only .jpg or .jpeg file</span><br>
+                                {% if form.errors.fee_receipt %}
+                                    <ul class="errorlist">
+                                    {% for error in form.errors.fee_receipt %}
+                                        <span class="text-danger">{{ error }}</span><br>
+                                    {% endfor %}
+                                    </ul>
+                                {% endif %}
+                            </div>
+
+                            <!-- How Here -->
+                            <div class="input-box">
+                                <label class="details" for="{{ form.how_here.id_for_label }}">How did you hear about us?:<span
+                                    style="color: red;">*</span></label>
+                                {{ form.how_here }}
+                            </div><br>
+                        </div>
+                            <!-- Registration Purpose -->
+                            <div>
+                                <label class="details">Registration Purpose:<span
+                                    style="color: red;">*</span></label><br>
+                                {% for radio in form.reg_purpose %}
+
+                                <div class="form-check">
+                                    {{ radio }}
+                                </div>    
+                                <script>
+                                    var radio = document.getElementById('{{ radio.auto_id }}');
+                                    radio.addEventListener('click', showAbstractFields);
+                                </script>
+                                {% endfor %}
+                            </div>
+
+                            <!-- Abstract Fields -->
+                            
+                            <div id="abstract_fields" class="hide">
+                                <!-- Abstract Name -->
+                                <div class="user-details">
+                                <div class="input-box">
+                                    <label class="details" for="{{ form.abstract_name.id_for_label }}">Abstract Name:<span
+                                        style="color: red;">*</span></label>
+                                    {{ form.abstract_name }}
+                                </div>
+
+                                <!-- Abstract Category -->
+                                <div class="input-box">
+                                    <label class="details" for="{{ form.abstract_category.id_for_label }}">Abstract Category:<span
+                                        style="color: red;">*</span></label>
+                                    {{ form.abstract_category }}
+                                </div>
+                                <div class="input-box">
+                                    <label class="details" for="{{ form.abstract_type.id_for_label }}">Abstract Type:<span
+                                        style="color: red;">*</span></label>
+                                    {{ form.abstract_type }}
+                                </div>
+                                <!-- Abstract File -->
+                                <div class="input-box">
+                                    <label class="details" for="{{ form.abstract_file.id_for_label }}">Abstract File:<span
+                                        style="color: red;">*</span></label>
+                                    {{ form.abstract_file }}
+                                    <span style="color:red;"><b>Note</b>:Upload only word file</span><br>
+                                </div>
+                                <div class="input-box">
+                                    <label class="details" for="{{ form.keywords.id_for_label }}">Keywords:<span
+                                        style="color: red;">*</span></label>
+                                    {{ form.keywords }}
+                                </div>
+                                
+                                </div>
+                                
+                            </div>
+
+                            <!-- Poster Title -->
+                            <div id="poster_title_field" class="hide my-1">
+                                <label for="{{ form.poster_title.id_for_label }}">Poster Title:<span
+                                    style="color: red;">*</span></label>
+                                {{ form.poster_title }}
+                            </div>
+                            <div id="guidelines">
+                                <pre></pre>
+                            </div>
+                            <!-- Terms and Conditions -->
+                            <div id="terms_conditions">
+                                <label for="{{ form.terms_conditions.id_for_label }}">Terms and Conditions:</label>
+                                {{ form.terms_conditions}}
+                            </div>
+                            </div>
+
+                            <div class="button">
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </head>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script>
+        $("#id_area").change(function () {
+            const url = $("#personForm").attr("data-cities-url");  
+            const areaId = $(this).val();  
+    
+            $.ajax({                       
+                url: url,                   
+                data: {
+                    'area_id': areaId      
+                },
+                success: function (data) {  
+                    $("#id_abstract_category").html(data); 
+                    $("#id_abstract_category").trigger("change"); 
+                    
+                }
+            });
+    
+        });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var message=document.querySelectorAll('.message li');
+            setTimeout(function(){
+                message.forEach(function(element){
+                    element.remove()
+                });
+            },5000);
+            function showAbstractFields() {
+                var regPurposeRadios = document.getElementsByName('reg_purpose');
+                var regPurposeValue = null;
+
+                for (var i = 0; i < regPurposeRadios.length; i++) {
+                    if (regPurposeRadios[i].checked) {
+                        regPurposeValue = regPurposeRadios[i].value;
+                        break;
+                    }
+                }
+
+                var abstractFields = document.getElementById('abstract_fields');
+                var posterTitleField = document.getElementById('poster_title_field');
+
+                var abstractNameInput = document.getElementById('{{ form.abstract_name.auto_id }}');
+                var abstractCategoryInput = document.getElementById('{{ form.abstract_category.auto_id }}');
+                var abstractFileInput = document.getElementById('{{ form.abstract_file.auto_id }}');
+                var abstractTypeInput = document.getElementById('{{ form.abstract_type.auto_id }}');
+                var abstractKeywordsInput = document.getElementById('{{ form.keywords.auto_id }}');
+
+                var posterTitleInput = document.getElementById('{{ form.poster_title.auto_id }}');
+
+                var termsConditionsField = document.getElementById('terms_conditions');
+                var guidelinesField = document.getElementById('guidelines');
+                var posterGuideText = "<p><strong>Poster Guidelines</strong></p>"
+                    + "<p><strong>Poster size:</strong> 2.5 X 5 feet</p>"
+                    + "<p><strong>Orientation:</strong> Portrait orientation</p>"
+                    + "<p><strong>Title:</strong> The title of your poster should be clear and concise</p>"
+                    + "<p><strong>Sections:</strong> Organize your poster into clear sections, such as introduction, objectives, methodology, results, conclusions, and references. Use headings and subheadings to make it easy for readers to follow.</p>"
+                    + "<p><strong>Graphics:</strong> Use graphics, such as charts, graphs, images, and tables to present your research in a visually appealing way. Make sure they are high-quality and easy to read.</p>"
+                    + "<p><strong>Text:</strong> Keep the text on your poster concise and easy to read. Use bullet points and short sentences to highlight important information.</p>"
+                    + "<p><strong>Font:</strong> Use a clear and easy-to-read font, such as Arial or Times New Roman, and make sure the font size is large enough to be read from a distance.</p>"
+                    + "<p><strong>References:</strong> Include a list of references at the end of your poster. Use APA style</p>"
+                    + "<p><strong>Submit through email</strong> (rtns@ue.edu.pk)</p>";
+
+                var abstractGuideText = "<p><strong>Download Abstract Format: http://bit.ly/3lEKvla</strong></p>"
+                    + "<strong>Submit through email (rtns@ue.edu.pk)</strong>";
+
+
+                if (regPurposeValue === 'abstract') {
+                    abstractFields.style.display = 'block';
+                    posterTitleField.style.display = 'none';
+                    abstractNameInput.required = true;
+                    abstractCategoryInput.required = true;
+                    abstractFileInput.required = true;
+                    abstractTypeInput.required = true;
+                    abstractKeywordsInput.required = true;
+                    posterTitleInput.required = false;
+                    posterTitleInput.value = ''
+                    guidelinesField.innerHTML = abstractGuideText;
+                    termsConditionsField.innerHTML = ' {{ form.terms_conditions }} I certify that the information provided on this abstract submission form is accurate to the best of my knowledge. I acknowledge that the submission of an abstract does not guarantee its acceptance for presentation at the conference. I understand that I will be notified of the decision regarding the acceptance of my abstract via email.'
+                } else if (regPurposeValue === 'poster') {
+                    abstractFields.style.display = 'none';
+                    posterTitleField.style.display = 'block';
+                    posterTitleInput.required = true;
+                    abstractNameInput.required = false;
+                    abstractCategoryInput.required = false;
+                    abstractFileInput.required = false;
+                    abstractTypeInput.required = false;
+                    abstractKeywordsInput.required = false;
+                    abstractNameInput.value = '';
+                    abstractCategoryInput.value = '';
+                    abstractFileInput.value = '';
+                    abstractTypeInput.value = '';
+                    abstractKeywordsInput.value = '';
+                    guidelinesField.innerHTML = posterGuideText;
+                    termsConditionsField.innerHTML = ' {{ form.terms_conditions }} I certify that the information provided on this poster submission form is accurate to the best of my knowledge. I acknowledge that the submission of poster does not guarantee its acceptance for presentation at the conference. I understand that I will be notified of the decision regarding the acceptance of my poster via email.'
+                } else {
+                    abstractFields.style.display = 'none';
+                    posterTitleField.style.display = 'none';
+                    abstractNameInput.required = false;
+                    abstractCategoryInput.required = false;
+                    abstractFileInput.required = false;
+                    abstractTypeInput.required = false;
+                    abstractKeywordsInput.required = false;
+                    posterTitleInput.required = false;
+                    guidelinesField.innerHTML = '';
+                    abstractNameInput.value = '';
+                    abstractCategoryInput.value = '';
+                    abstractFileInput.value = '';
+                    abstractTypeInput.value = '';
+                    abstractKeywordsInput.value = '';
+                    posterTitleInput.value = ''
+                    termsConditionsField.innerHTML = '{{ form.terms_conditions }} I agree to the terms and conditions of the conference, and I certify that the information provided on this registration form is accurate to the best of my knowledge.'
+                }
+                console.log('Selected reg_purpose:', regPurposeValue);
+            }
+
+            // Call the function when the page loads to initialize the visibility
+            showAbstractFields();
+
+            // Attach event listener to the radio buttons
+            var regPurposeRadios = document.getElementsByName('reg_purpose');
+            for (var i = 0; i < regPurposeRadios.length; i++) {
+                regPurposeRadios[i].addEventListener('change', showAbstractFields);
+            }
+
+        });
+       
+    </script>
+    </body>
+    </html>   
+    {% endblock content %} 

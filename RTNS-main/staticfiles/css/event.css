@@ -1,0 +1,72 @@
+.event-container{
+    max-width: 80%;
+}
+.event-heading{
+    color: rgb(75, 167, 243) ;
+}
+.event-heading span{
+    color: white;
+    text-shadow: 2px 2px rgb(75, 167, 243) ;
+}
+.location{
+    font-size: small;
+}
+.card_link{
+    color: rgb(75, 167, 243) ;
+    text-decoration: none;
+}
+.popevent-card-img-top{
+    min-height: 150px;
+    min-width: 200px;
+}
+.date{
+    color: white;
+    position: absolute;
+    right: 0px;
+    background-color: rgb(75, 167, 243) ;
+}
+.upcomE-date{
+    background-color:white;
+    border: 1px solid rgb(75, 167, 243) ;
+    color: rgb(75, 167, 243) ;
+    border-radius: 20px;
+    text-align: center;
+}
+.upcomE-date:hover{
+    background-color: rgb(75, 167, 243) ;
+    color: white;
+
+}
+.schdule-container{
+    max-width: 80%;
+}
+.card-speaker-img{
+    width: 100px;
+    height: 100px;
+    border-radius: 50px;
+}
+.speaker-personal-info{
+background-color: rgb(212, 208, 208);
+}
+.speaker-name{
+    color: rgb(75, 167, 243) ;
+}
+.event-time{
+    color: white;
+background-color: black;
+}
+.schdule-card-heading{
+    text-align: justify;
+    font-weight: bold;
+}
+p{
+    text-align: justify;
+}
+.topics{
+    color: rgb(75, 167, 243) ;
+}
+.event_book_button{
+    background-color: rgb(75, 167, 243);
+    color: white;
+}
+

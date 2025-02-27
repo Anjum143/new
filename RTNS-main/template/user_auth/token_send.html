@@ -1,0 +1,17 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+      <div class="col-12 col-lg-6 p-5 text-center">
+        <div class="card mx-auto py-5 shadow">
+          <div class="card-body py-5">
+            <img src="{% static 'Image/email_icon.png' %}" class="card-img-top mx-auto" alt="..." style="height: 150px;width:150px">
+            <h3 class="card-title mt-lg-5">We have send you an email</h3>
+            <h6 class="card-subtitle mb-2 text-muted">Check your email to confirm</h6>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{%endblock%}

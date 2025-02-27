@@ -1,0 +1,23 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+{% block content %}
+<style>
+    .forget_password_button{
+        background-color: rgb(75, 167, 243) ;
+        color: white;
+    }
+</style>
+<div class="container py-5">
+    <div class="card mx-auto p-4 my-5" style="max-width: 18rem; ">
+        <div class="card-body">
+            <h5 class="card-title">Forget Password</h5>
+            <form class="form" method="post" >
+                {% csrf_token %}
+                {{form.as_p}}
+                <input type="submit" class="btn forget_password_button" value="Submit">
+            </form>
+        </div>
+    </div>
+</div>
+</div>
+{%endblock%}

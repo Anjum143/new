@@ -1,0 +1,17 @@
+
+.footer{
+    color: white;
+    background-color:rgb(0, 0, 0)
+}
+/* .footer img{
+    width: 120px;
+    height: 120px;
+} */
+.footer_nav{
+    list-style: none;
+    line-height: 1;
+}
+/* .sponsors_logo{
+    width: 120px;
+    height: 120px;
+} */

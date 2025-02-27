@@ -1,0 +1,20 @@
+{% extends 'partials/base.html' %}
+{% block content %}
+<style>
+.article-submit-button{
+    background-color: rgb(75, 167, 243) ;
+    color: white;
+}
+</style>
+<div class="container p-5 ">
+<form method="POST" enctype="multipart/form-data" class="form w-75 mx-auto border p-2">
+    {% csrf_token %}
+    <h1 class="text-center my-3">Submit Your Article</h1>
+    {{ form.as_p }}
+    <div class="text-center">
+    <button type="submit" class="btn article-submit-button my-3 text-center">Submit</button>
+</div>
+</form>
+</div>
+
+{%endblock%}

@@ -1,0 +1,85 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+{% block content %}
+<head>
+    
+    <link rel="stylesheet" href="{% static 'css/sign_up.css' %}">
+</head>
+
+<div class="text-center mx-auto d-flex justify-content-center" >
+    {% if form.errors %}
+    <div class="error-messages" id="error-container">
+      {% for field_errors in form.errors.values %}
+        {% for error in field_errors %}
+        <div class="text-center mt-1 p-3 text-danger" style="border:solid red 2px;">
+            <span class="text-center"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> {{error}}</span>
+            <button class="text-danger" style="background-color: transparent;border:none;" onclick="removeErrorMessage(this)">X</button>
+        </div>
+        {% endfor %}
+      {% endfor %}
+    </div>
+  {% endif %}
+</div>
+<div class="container sign_up_maincon p-2 min-vh-100 d-flex justify-content-center align-items-center">
+    <div class="row shadow p-2">
+        <div class="col-md-6 text-center d-flex align-items-center">
+            <div class="mx-3">
+            <img src="{% static 'Image/RTNSlogo.png' %}" alt="" srcset="" class="img-fluid">
+            <h2 style="color: rgb(245, 89, 50);font-style: italic;">Welcome to RTNS</h2>
+            </div>
+        </div>
+        <div class="col-md-6 sign_up_form_area shadow py-4 px-4">
+            
+            <h1 class="text-center text-white">Sign Up</h1>
+            <form action="" method="post">
+                {% csrf_token %}
+            <div class="form-group sign_up_form_group">
+                {{form.name}}
+            </div>
+            <div class="form-group sign_up_form_group">
+                {{form.email}}
+                
+            </div>
+            <div class="password_warnings">
+                <ul style="list-style: none;">
+                    {%for warnig in password_warnings%}
+                    <li><i class="fa-solid fa-check"></i> {{warnig}}</li>
+                    {%endfor%}
+                </ul>
+            </div>
+            <div class="form-group sign_up_form_group">
+                {{form.password1}}
+                
+            </div>
+            <div class="form-group sign_up_form_group">
+                {{form.password2}}
+                
+            </div>
+            
+            <div>
+                <button type="submit" class="btn btn-light btn-lg w-100">Sign Up</button>
+            </div>
+            <div class="mt-2 sign_link">
+                <span>Already have an account </span>
+                <a  href="{% url 'user_auth:user_signin'%}" target="_blank" rel="noopener noreferrer">Login</a>
+            </div>
+        </form>
+        </div>
+    </div>
+</div>
+<script>
+    function removeErrorMessage(button) {
+            var errorContainer = button.parentElement;
+            errorContainer.remove();
+        }
+    document.addEventListener('DOMContentLoaded', function() {
+        errorcontainer=document.getElementById('error-container')
+        setTimeout(function(){
+            if(errorcontainer){
+                errorcontainer.style.display='none';
+            }
+        },20000)
+    })
+</script>
+{% endblock content %}
+

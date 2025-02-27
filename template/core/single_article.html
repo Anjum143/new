@@ -1,0 +1,9 @@
+
+{% extends 'partials/base.html' %}
+<!-- {% load static %} -->
+{% block content %}
+<div class="p-4">
+    <h2 class="text-center my-3 text-primary">{{article.title}}</h2>
+    {{html_content|safe}}
+</div>
+{%endblock content%}

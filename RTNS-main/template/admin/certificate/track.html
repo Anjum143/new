@@ -1,0 +1,31 @@
+
+{% extends 'admin/base_site.html'%}
+{% block content %}
+	<h3> Certificate Generation Report for {{event_name}}</h3>
+	<small>on : {{event_date}}</small>
+	<br/>
+	<table class="table table-striped">
+	  <thead>
+	    <tr>
+	      <th scope="col">#</th>
+	      <th scope="col">Email</th>
+	      <th scope="col">Status</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	  	{% for item in participat_details %}
+	    <tr>
+	      <th scope="row">{{forloop.counter}}</th>
+	      <td>{{item.email}}</td>
+	      {% if item.status %}
+	      	<td style="color:green">Sent</td>
+	      {% else %}
+	      	<td style="color: red">Unsend</td>
+	      {% endif %}
+	    </tr>
+	    {% endfor %}
+	  </tbody>
+	</table>
+{% endblock content %}
+
+Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eligendi tempora cumque doloribus! Doloribus dolor minima quaerat sit, nostrum inventore et necessitatibus commodi quam iusto, quibusdam earum non neque, iste illo!

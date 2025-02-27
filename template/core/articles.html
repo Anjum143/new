@@ -1,0 +1,158 @@
+{% extends 'partials/base.html' %}
+<!-- {% load static %} -->
+{% block content %}
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<style>
+    .fas.fa-file-word {
+        font-size: 30px;
+        margin-right: 10px;
+        color: #007bff;
+       
+    }
+
+    .article-container {
+        border: 1px solid black;
+        box-shadow: 2px 2px 2px #007bff50;
+    }
+
+    .article_list_instance {
+        background-color: white;
+        height: 70px;
+        border-radius: 5px;
+        box-shadow: 2px 2px 5px #007bff50;
+        padding: 2px;
+    }
+
+    .serach-icon {
+        background-color: #007bff;
+
+    }
+
+    .search-input {
+        border-radius: 0px !important;
+        width: 200px;
+        box-shadow: none;
+    }
+
+    .search-input:hover {
+        border-radius: 0px !important;
+        width: 200px;
+        box-shadow: none;
+    }
+
+    .share-button {
+        background-color: #007bff;
+        color: white;
+    }
+
+    .user-card-img {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+    }
+    .sidebar_user_initial {
+        color: white;
+        font-weight: bold;
+        width: 70px;
+        height: 70px;
+        font-size: 40px;
+        border-radius: 50px;
+        text-align: center;
+        background-color: rgb(173, 173, 173);
+        margin: 0px auto;
+    }
+</style>
+
+
+<div class="container pt-5">
+
+    <form action="" class="form">
+        <div class="d-flex justify-content-between">
+            <div class="d-flex">
+                <input placeholder="Search Articles..." class="form-control search-input" id="articleSearch"
+                    type="text">
+                <button class="btn btn-sm serach-icon p-2"><i class="fas fa-search"></i></button>
+            </div>
+            <div>
+                <a href="{% url 'article:submit_article'%}" class="btn ms-5 share-button">Share Your Article</a>
+            </div>
+        </div>
+    </form>
+    <h1 class="text-center my-5">Articles</h1>
+
+    <div id="articleList">
+        {% for article in approved_articles %}
+        <div class="card mb-3" style="max-width: 640px;">
+            <div class="row no-gutters">
+                <div class="col-md-3 p-5">
+                    {% if article.author.profile.image and article.author.profile.image.url %}
+                        <img src="{{ article.author.profile.image.url }}" class="card-img user-card-img mx-auto my-auto"
+                        alt="...">
+                        {% else %}
+                        <div class="sidebar_user_initial">{{ article.author.username|first|upper }}</div>
+                        {% endif %}
+                    
+                </div>
+                <div class="col-md-8 px-3">
+                    <div class="card-body">
+                        <h5 class="card-title">{{article.title}}</h5>
+                        <h6 class="card-title-author">Author:{{article.author}}</h6>
+                        <p class="card-text">{{article.content|slice:":150"}}</p>
+                        <a href="{% url 'article:single_article' article_id=article.id %}">Read More...</a>
+                        <p class="card-text"><a href="{{ article.article_file.url }}" target="_blank">Download
+                                Article</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <div id="noResultsMessage" style="display: none; text-align: center; margin-top: 10px;">
+        No Articles matches your search
+    </div>
+
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const searchInput = document.getElementById('articleSearch');
+        const articleList = document.getElementById('articleList');
+        const noResultsMessage = document.getElementById('noResultsMessage');
+
+
+        searchInput.addEventListener('input', function () {
+            const searchTerm = searchInput.value.toLowerCase();
+            const articles = document.querySelectorAll('#articleList .card');
+            let resultFound = false;
+            articles.forEach(function (article) {
+                const title = article.querySelector('.card-title').textContent.toLowerCase();
+                const author = article.querySelector('.card-title-author').textContent.toLowerCase();
+                const content = article.querySelector('.card-text').textContent.toLowerCase();
+
+                if (title.includes(searchTerm) || author.includes(searchTerm) || content.includes(searchTerm)) {
+                    article.style.display = 'block';
+                    resultFound = true
+                } else {
+                    article.style.display = 'none';
+                }
+            });
+
+            if (resultFound) {
+                noResultsMessage.style.display = 'none';
+            }
+            else {
+                noResultsMessage.style.display = 'block';
+            }
+        });
+    });
+
+    // document.querySelectorAll('.card').forEach(card =>{
+    //     card.addEventListener('click',()=>{
+    //         const articleId=card.getAttribute('data-card-id');
+    //         window.location.href='/article/${articleId}'
+    //     })
+    // })
+
+</script>
+
+
+{%endblock%}

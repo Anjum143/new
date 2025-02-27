@@ -1,0 +1,24 @@
+.about_sec{
+    margin: 30px;
+}
+.about_img{
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.3);
+    height: fit-content;
+}
+.about_img img{
+    max-width: 100%;
+    max-height: 100%;
+}
+.about_para h1{
+    font-weight: 500;
+}
+.about_para p{
+    text-align: justify;
+}
+.about_para button{
+    background-color:rgb(75, 167, 243) ;
+    color: white;
+    border-radius: 5px;
+}

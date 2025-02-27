@@ -1,0 +1,44 @@
+{% extends "admin/change_form.html" %}
+
+{% block extrahead %}
+
+    <style>
+        .bold { font-weight: bold; }
+        .italic { font-style: italic; }
+        .underline { text-decoration: underline; }
+
+        textarea{
+            resize: none;
+        }
+        
+    </style>
+{% endblock %}
+
+{% block content %}
+{{ block.super }}
+    <div class="form-row field-display_file_content">
+        <div class="field-box">
+            <label for="id_display_file_content">File Content:</label>
+            {% for text, bold, italic, underline, size in file_content %}
+            <p>
+                <span class="{% if bold %}bold{% endif %}{% if italic %}italic{% endif %}{% if underline %}underline{% endif %}{% if size %}size{% endif %}">{{ text }}</span>
+            </p>
+            {% endfor %}
+        </div>
+    </div>
+    {% if image_url %}
+    <div class="module">
+        <h2>Receipt Image</h2>
+        {{image_url}}
+        <img src="{{ image_url }}" alt="Receipt Image" style="max-width: 500px;">
+        <img src="https://drive.google.com/file/d/1aStiGw7xUozWQJsDejKD7U2Y--ADkIax/preview" width="640" height="480">
+        <iframe src="https://drive.google.com/file/d/1aStiGw7xUozWQJsDejKD7U2Y--ADkIax/preview" width="640" height="480"></iframe>
+    </div>
+    {% endif %}
+    
+{% endblock %}
+{% block submit_buttons_bottom %}
+    <div class="submit-row">
+        <input type="submit" value="Save" class="default btn btn-primary" name="_save" />
+    </div>
+{% endblock %}

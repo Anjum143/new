@@ -1,0 +1,72 @@
+.countdown{
+    position:absolute;
+    top: 30%;
+    left:15% ;
+    z-index: 2;
+    width: 70%;
+    line-height: 2;
+}
+.countdown h3{
+    color: white;
+    font-weight: 400;
+    font-size: medium;
+    line-height: 0;
+}
+.countdown h1{
+    color: white;
+    font-size: 40px;
+    font-weight: 500;
+}
+.single_count{
+    max-width: 80px;
+    overflow: hidden;
+    display: inline-block;
+    background-color: rgb(75, 167, 243);
+    padding: 20px 0px 0px;
+    margin-left: 5px;
+    border-radius: 5px;
+    text-align: center;
+    color: white;
+}.days{
+    margin-left: 0px;
+}
+.single_count span{
+    color: black;
+}
+.days span{
+    background-color: white;
+    margin-top: 10px;
+    padding: 10px 25px;
+    font-style: italic;
+}
+.hours span{
+    background-color: white;
+    margin-top: 10px;
+    padding: 10px 21px;
+    font-style: italic;
+}
+.min span{
+    background-color: white;
+    margin-top: 10px;
+    padding: 10px 30px;
+    font-style: italic;
+}
+.sec span{
+    background-color: white;
+    margin-top: 10px;
+    padding: 10px 30px;
+    font-style: italic;
+}
+.reg_button{
+    border: 1px solid white;
+    background-color: transparent;
+    color: white;
+    box-shadow: 2px 2px 3px black;
+    padding: 5px 16px;
+    border-radius: 5px;
+}
+.reg_button:hover{
+    background-color: white;
+    color: black;
+    box-shadow: 2px 2px 3px black;
+}
